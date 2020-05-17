@@ -1,16 +1,13 @@
-import React, { Fragment } from "react";
 import {
   Box,
   Grid,
-  Container,
-  Card,
-  Typography,
-  TextField,
   InputAdornment,
-  BoxProps,
+  TextField,
+  Typography,
 } from "@material-ui/core";
-import transcript from "../transcript";
 import SearchIcon from "@material-ui/icons/Search";
+import React, { Fragment } from "react";
+import transcript from "../../transcript";
 
 const TranscriptPage: React.FunctionComponent = () => {
   const [search, setSearch] = React.useState<string>("");
@@ -77,7 +74,12 @@ const TranscriptPage: React.FunctionComponent = () => {
             style={{ height: "90%", overflow: "hidden scroll", width: "100%" }}
           >
             {transcript.reduce((list, item, index, array) => {
-              if (item.text.includes(search)) {
+              if (
+                item.text
+                  .toLowerCase()
+                  .replace(/[^a-z ]/g, "")
+                  .includes(search.toLowerCase().replace(/[^a-z ]/g, ""))
+              ) {
                 list.push(
                   <Box
                     style={{ marginLeft: "5%" }}
