@@ -1,18 +1,19 @@
-// [START speech_transcribe_infinite_streaming]
-
 import { v1p1beta1 as speech } from "@google-cloud/speech/";
 import { GoogleAuth } from "google-auth-library";
-import Pumpify from "pumpify"; // For Type Defs
+/* import Pumpify from "pumpify"; // For Type Defs
 
+// Note: Used for Infinite Stream Transcription
 const encoding: any = "LINEAR16";
 const sampleRateHertz = 16000;
 const languageCode = "en-US";
-const streamingLimit = 10000; // ms - set to low number for demo purposes
+const streamingLimit = 10000; // ms - set to low number for demo purposes */
 
 export const speechToTextClient = new speech.SpeechClient({
   auth: new GoogleAuth({ keyFilename: "./credentials.json" }),
 });
 
+// Note: Used for Infinite Stream Transcription
+/*
 const config = {
   encoding: encoding,
   sampleRateHertz: sampleRateHertz,
@@ -154,11 +155,11 @@ function restartStream() {
   }
 
   console.log(`${streamingLimit * restartCounter}: RESTARTING REQUEST\n`);
-  /* process.stdout.write(
-    chalk.yellow(`${streamingLimit * restartCounter}: RESTARTING REQUEST\n`)
-  ); */
+  // process.stdout.write(
+  //   chalk.yellow(`${streamingLimit * restartCounter}: RESTARTING REQUEST\n`)
+  // );
 
   newStream = true;
 
   startStream();
-}
+} */

@@ -15,6 +15,7 @@ const ProfilePage: React.FunctionComponent<PageProps> = ({
   forceReloadUserData,
   handleLoadUserData,
   setVideo,
+  setLive,
   classes,
 }) => {
   return (
@@ -35,6 +36,7 @@ const ProfilePage: React.FunctionComponent<PageProps> = ({
             setLoadingMessage={setLoadingMessage}
             setNotification={setNotification}
             setVideo={setVideo}
+            setLive={setLive}
             classes={classes}
           />
         </Grid>
@@ -48,6 +50,7 @@ const ProfilePage: React.FunctionComponent<PageProps> = ({
             setLoadingMessage={setLoadingMessage}
             setNotification={setNotification}
             setVideo={setVideo}
+            setLive={setLive}
             classes={classes}
           />
           <ViewEditUserEmail
@@ -59,6 +62,7 @@ const ProfilePage: React.FunctionComponent<PageProps> = ({
             setLoadingMessage={setLoadingMessage}
             setNotification={setNotification}
             setVideo={setVideo}
+            setLive={setLive}
             classes={classes}
           />
           <ViewEditUserPassword
@@ -70,6 +74,7 @@ const ProfilePage: React.FunctionComponent<PageProps> = ({
             setLoadingMessage={setLoadingMessage}
             setNotification={setNotification}
             setVideo={setVideo}
+            setLive={setLive}
             classes={classes}
           />
         </Grid>

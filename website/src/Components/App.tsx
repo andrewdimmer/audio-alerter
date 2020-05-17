@@ -33,6 +33,7 @@ const App: React.FunctionComponent<AppProps> = ({ theme, toggleTheme }) => {
   ] = React.useState<UserProfile | null>(null);
   const [reloadUserData, setReloadUserData] = React.useState<boolean>(true);
   const [video, setVideo] = React.useState<VideoData | undefined>(undefined);
+  const [live, setLive] = React.useState<boolean>(false);
 
   const PageContent = getPageComponent(pageKey);
   const classes = styles();
@@ -81,10 +82,16 @@ const App: React.FunctionComponent<AppProps> = ({ theme, toggleTheme }) => {
         theme={theme}
         toggleTheme={toggleTheme}
         currentUserProfile={currentUserProfile}
-        backFunction={video ? () => setVideo(undefined) : undefined}
+        backFunction={
+          video
+            ? () => setVideo(undefined)
+            : live
+            ? () => setLive(false)
+            : undefined
+        }
       />
-      {video ? (
-        <TranscriptPage video={video} />
+      {video || live ? (
+        <TranscriptPage video={video} live={live} classes={classes} />
       ) : (
         <Container className={classes.marginedTopBottom}>
           <PageContent
@@ -94,6 +101,7 @@ const App: React.FunctionComponent<AppProps> = ({ theme, toggleTheme }) => {
             forceReloadUserData={forceReloadUserData}
             handleLoadUserData={handleLoadUserData}
             setVideo={setVideo}
+            setLive={setLive}
             currentUser={currentUser}
             currentUserProfile={currentUserProfile}
             classes={classes}
