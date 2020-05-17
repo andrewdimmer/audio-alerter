@@ -95,6 +95,7 @@ const App: React.FunctionComponent<AppProps> = ({ theme, toggleTheme }) => {
           video={video}
           live={live}
           setNotification={setNotification}
+          currentUserProfile={currentUserProfile}
           classes={classes}
         />
       ) : (

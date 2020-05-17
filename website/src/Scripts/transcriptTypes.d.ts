@@ -8,6 +8,7 @@ export declare interface TranscriptionItemWithFinal extends TranscriptItem {
 }
 
 export declare interface VideoData {
+  videoId: string;
   videoTitle: string;
   videoSource: string;
   videoType: string;
