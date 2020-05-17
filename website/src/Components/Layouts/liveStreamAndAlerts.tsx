@@ -24,6 +24,7 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
   );
   const [tags, setTags] = React.useState<string[]>([]);
   const [tempTags, setTempTags] = React.useState<string>("");
+  const [triggeredTags, setTriggeredTags] = React.useState<boolean[]>([]);
 
   let transcript: TranscriptItem[] = [];
 
@@ -59,6 +60,7 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
       console.log(newTag);
       if (!tags.includes(newTag)) {
         setTags(tags.concat([newTag]));
+        setTriggeredTags(triggeredTags.concat([false]));
       }
       setTempTags(remaining);
     } else {
@@ -74,13 +76,42 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
       return currentTags;
     }, [] as string[]);
     setTags(newTags);
+    const newTriggeredTags = triggeredTags.reduce(
+      (currentTags, currentValue, index) => {
+        if (target !== index) {
+          currentTags.push(currentValue);
+        }
+        return currentTags;
+      },
+      [] as boolean[]
+    );
+    setTriggeredTags(newTriggeredTags);
+  };
+
+  const checkTriggeredTags = (text: string) => {
+    setTriggeredTags(
+      tags.map((value, index) =>
+        text
+          .toLowerCase()
+          .replace(/[^a-z ]/g, "")
+          .indexOf(value) >= 0
+          ? true
+          : triggeredTags[index]
+      )
+    );
+  };
+
+  const resetTriggeredTags = () => {
+    setTriggeredTags(tags.map(() => false));
   };
 
   const handleDataReturned = (data: TranscriptionItemWithFinal) => {
     setMostRecentTranscript(data.text);
+    checkTriggeredTags(data.text);
     if (data.isFinal && data.text) {
       transcript.push({ text: data.text, time: data.time });
       setTranscript(transcript.concat([]));
+      resetTriggeredTags();
     }
   };
 
@@ -134,7 +165,7 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
               label={value}
               onDelete={() => handleTagDelete(index)}
               color="primary"
-              variant="outlined"
+              variant={triggeredTags[index] ? "default" : "outlined"}
               style={{
                 marginTop: 5,
                 marginBottom: 5,
