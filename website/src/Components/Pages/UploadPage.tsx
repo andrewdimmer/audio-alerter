@@ -58,6 +58,7 @@ const UploadPage: React.FunctionComponent<PageProps> = ({
         color="primary"
         onClick={() => {
           setVideo({
+            videoId: "Test",
             videoTitle: "Hacklarious Demo Video",
             videoSource: "../..//Assets/HacklariousVideo.mp4",
             videoType: "video/mp4",
