@@ -20,7 +20,7 @@ const HomePage: React.FunctionComponent<PageProps> = ({
           fullWidth
           variant="contained"
           size="large"
-          className={classes.margined}
+          className={classes.marginedTopBottom}
           disabled={currentUser ? true : false}
           onClick={() => {
             setPageKey("login");
@@ -36,7 +36,7 @@ const HomePage: React.FunctionComponent<PageProps> = ({
         fullWidth
         variant="contained"
         size="large"
-        className={classes.margined}
+        className={classes.marginedTopBottom}
         disabled={currentUser ? false : true}
         onClick={() => {
           setPageKey("events");
@@ -53,7 +53,7 @@ const HomePage: React.FunctionComponent<PageProps> = ({
         fullWidth
         variant="contained"
         size="large"
-        className={classes.margined}
+        className={classes.marginedTopBottom}
         disabled={currentUser ? false : true}
         onClick={() => {
           setPageKey("events");
@@ -70,7 +70,7 @@ const HomePage: React.FunctionComponent<PageProps> = ({
         fullWidth
         variant="contained"
         size="large"
-        className={classes.margined}
+        className={classes.marginedTopBottom}
         disabled={currentUser ? false : true}
         onClick={() => {
           setPageKey("events");
