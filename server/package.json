@@ -1,0 +1,22 @@
+{
+  "name": "audio-alerter-server",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@google-cloud/speech": "^3.6.0",
+    "socket.io": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.39",
+    "@types/socket.io": "^2.1.5",
+    "install": "^0.13.0",
+    "npm": "^6.14.5",
+    "pumpify": "^2.0.1",
+    "typescript": "^3.7.5"
+  },
+  "scripts": {
+    "build": "tsc",
+    "buildrun": "tsc && node build/server.js",
+    "start": "node build/server.js"
+  }
+}
