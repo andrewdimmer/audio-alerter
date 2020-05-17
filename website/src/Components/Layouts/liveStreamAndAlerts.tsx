@@ -4,17 +4,27 @@ import StopIcon from "@material-ui/icons/Stop";
 import React, { Fragment } from "react";
 import { startRecording, stopRecording } from "../../Scripts/liveMicrophone";
 import {
+  addTag,
+  doNotify,
+  removeTag,
+  resetTriggered,
+  triggerTag,
+} from "../../Scripts/notificationHelper";
+import {
   TranscriptionItemWithFinal,
   TranscriptItem,
 } from "../../Scripts/transcriptTypes";
+import { NotificationMessage } from "../Misc/Notifications";
 
 declare interface LiveStreamAndSearchProps {
   setTranscript: (transcript: TranscriptItem[]) => void;
+  setNotification: (notification: NotificationMessage) => void;
   classes: any;
 }
 
 const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = ({
   setTranscript,
+  setNotification,
   classes,
 }) => {
   const [videoTitle, setVideoTitle] = React.useState<string>("");
@@ -57,10 +67,10 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
         .toLowerCase()
         .replace(/[^a-z ]/g, "");
       const remaining = text.substring(text.indexOf(",") + 1).trim();
-      console.log(newTag);
       if (!tags.includes(newTag)) {
         setTags(tags.concat([newTag]));
         setTriggeredTags(triggeredTags.concat([false]));
+        addTag();
       }
       setTempTags(remaining);
     } else {
@@ -86,23 +96,37 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
       [] as boolean[]
     );
     setTriggeredTags(newTriggeredTags);
+    removeTag(target);
   };
 
   const checkTriggeredTags = (text: string) => {
     setTriggeredTags(
-      tags.map((value, index) =>
-        text
-          .toLowerCase()
-          .replace(/[^a-z ]/g, "")
-          .indexOf(value) >= 0
-          ? true
-          : triggeredTags[index]
-      )
+      tags.map((value, index) => {
+        if (
+          text
+            .toLowerCase()
+            .replace(/[^a-z ]/g, "")
+            .indexOf(value) >= 0
+        ) {
+          if (doNotify(index)) {
+            triggerTag(index);
+            setNotification({
+              type: "info",
+              message: `Audio Alerter just heard the tag \"${value}\".`,
+              open: true,
+            });
+          }
+          return true;
+        } else {
+          return false;
+        }
+      })
     );
   };
 
   const resetTriggeredTags = () => {
     setTriggeredTags(tags.map(() => false));
+    resetTriggered();
   };
 
   const handleDataReturned = (data: TranscriptionItemWithFinal) => {

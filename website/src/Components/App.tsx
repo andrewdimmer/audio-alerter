@@ -91,7 +91,12 @@ const App: React.FunctionComponent<AppProps> = ({ theme, toggleTheme }) => {
         }
       />
       {video || live ? (
-        <TranscriptPage video={video} live={live} classes={classes} />
+        <TranscriptPage
+          video={video}
+          live={live}
+          setNotification={setNotification}
+          classes={classes}
+        />
       ) : (
         <Container className={classes.marginedTopBottom}>
           <PageContent
