@@ -2,10 +2,12 @@ import { Container, Typography, Button } from "@material-ui/core";
 import React from "react";
 import { styles } from "../../Styles";
 import { PageProps } from ".";
+import transcript from "../../transcript";
 
 const HomePage: React.FunctionComponent<PageProps> = ({
   currentUser,
   setPageKey,
+  setVideo,
 }) => {
   const classes = styles();
 
@@ -73,7 +75,12 @@ const HomePage: React.FunctionComponent<PageProps> = ({
         className={classes.marginedTopBottom}
         disabled={currentUser ? false : true}
         onClick={() => {
-          setPageKey("events");
+          setVideo({
+            videoTitle: "Hacklarious Demo Video",
+            videoSource: "../..//Assets/HacklariousVideo.mp4",
+            videoType: "video/mp4",
+            transcript,
+          });
         }}
       >
         <Typography variant="h4">

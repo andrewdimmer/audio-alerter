@@ -10,6 +10,7 @@ import HomePage from "./HomePage";
 import LoginPage from "./LoginPage";
 import LogoutPage from "./LogoutPage";
 import ProfilePage from "./ProfilePage";
+import { VideoData } from "../../Scripts/transcriptTypes";
 
 export declare interface PageProps {
   setPageKey: (pageKey: string) => void;
@@ -17,6 +18,7 @@ export declare interface PageProps {
   setNotification: (notification: NotificationMessage) => void;
   forceReloadUserData: () => void;
   handleLoadUserData: (userId: string) => void;
+  setVideo: (video?: VideoData) => void;
   currentUser: firebase.User | null;
   currentUserProfile: UserProfile | null;
   classes: any;

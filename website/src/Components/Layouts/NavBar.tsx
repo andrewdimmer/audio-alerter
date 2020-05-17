@@ -18,6 +18,7 @@ import React from "react";
 import { UserProfile } from "../../Scripts/userTypes";
 import SquareAvatar from "../Misc/SquareAvatar";
 import { pageListForMenu, PageListForMenuItem } from "../Pages";
+import ArrowBackIcon from "@material-ui/icons/ArrowBack";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -39,6 +40,7 @@ declare interface NavBarProps {
   currentUserProfile: UserProfile | null;
   setPageKey: (pageKey: string) => void;
   pageTitle: string;
+  backFunction?: () => void;
 }
 
 const NavBar: React.FunctionComponent<NavBarProps> = ({
@@ -47,6 +49,7 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({
   currentUserProfile,
   setPageKey,
   pageTitle,
+  backFunction,
 }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -73,6 +76,17 @@ const NavBar: React.FunctionComponent<NavBarProps> = ({
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar>
+          {backFunction && (
+            <IconButton
+              edge="start"
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="back"
+              onClick={backFunction}
+            >
+              <ArrowBackIcon />
+            </IconButton>
+          )}
           <Typography variant="h6" className={classes.title}>
             {pageTitle ? `${pageTitle} - ` : ""}Audio Alerter
           </Typography>

@@ -1,13 +1,15 @@
 import { Button, Container, Typography } from "@material-ui/core";
 import React, { Fragment } from "react";
 import { firebaseApp } from "../Scripts/firebaseConfig";
+import { VideoData } from "../Scripts/transcriptTypes";
+import { getUserProfileDatabase } from "../Scripts/userProfileFunctions";
 import { UserProfile } from "../Scripts/userTypes";
 import { styles } from "../Styles";
 import NavBar from "./Layouts/NavBar";
+import TranscriptPage from "./Layouts/TranscriptSearchAndDisplay";
 import LoadingScreen from "./Misc/LoadingScreen";
 import NotificationBar, { NotificationMessage } from "./Misc/Notifications";
 import { getPageComponent, getPageTitle } from "./Pages";
-import { getUserProfileDatabase } from "../Scripts/userProfileFunctions";
 
 declare interface AppProps {
   theme: "light" | "dark";
@@ -30,6 +32,7 @@ const App: React.FunctionComponent<AppProps> = ({ theme, toggleTheme }) => {
     setCurrentUserProfile,
   ] = React.useState<UserProfile | null>(null);
   const [reloadUserData, setReloadUserData] = React.useState<boolean>(true);
+  const [video, setVideo] = React.useState<VideoData | undefined>(undefined);
 
   const PageContent = getPageComponent(pageKey);
   const classes = styles();
@@ -78,33 +81,39 @@ const App: React.FunctionComponent<AppProps> = ({ theme, toggleTheme }) => {
         theme={theme}
         toggleTheme={toggleTheme}
         currentUserProfile={currentUserProfile}
+        backFunction={video ? () => setVideo(undefined) : undefined}
       />
-      <Container className={classes.marginedTopBottom}>
-        <PageContent
-          setPageKey={setPageKey}
-          setLoadingMessage={setLoadingMessage}
-          setNotification={setNotification}
-          forceReloadUserData={forceReloadUserData}
-          handleLoadUserData={handleLoadUserData}
-          currentUser={currentUser}
-          currentUserProfile={currentUserProfile}
-          classes={classes}
-        />
-        {pageKey !== "home" && (
-          <Button
-            color="primary"
-            fullWidth
-            variant="outlined"
-            size="large"
-            className={classes.margined}
-            onClick={() => {
-              setPageKey("home");
-            }}
-          >
-            <Typography variant="h4">Return to Home</Typography>
-          </Button>
-        )}
-      </Container>
+      {video ? (
+        <TranscriptPage video={video} />
+      ) : (
+        <Container className={classes.marginedTopBottom}>
+          <PageContent
+            setPageKey={setPageKey}
+            setLoadingMessage={setLoadingMessage}
+            setNotification={setNotification}
+            forceReloadUserData={forceReloadUserData}
+            handleLoadUserData={handleLoadUserData}
+            setVideo={setVideo}
+            currentUser={currentUser}
+            currentUserProfile={currentUserProfile}
+            classes={classes}
+          />
+          {pageKey !== "home" && (
+            <Button
+              color="primary"
+              fullWidth
+              variant="outlined"
+              size="large"
+              className={classes.marginedTopBottom}
+              onClick={() => {
+                setPageKey("home");
+              }}
+            >
+              <Typography variant="h4">Return to Home</Typography>
+            </Button>
+          )}
+        </Container>
+      )}
       <LoadingScreen loadingMessage={loadingMessage} />
       <NotificationBar
         notification={notification}
