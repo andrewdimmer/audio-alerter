@@ -1,0 +1,298 @@
+00:00:01.910 --> 00:00:01.920 align:start position:0%
+dance till you drop is like monty
+ 
+
+
+00:00:03.669 --> 00:00:03.679 align:start position:0%
+python's ministry of silly walks
+ 
+
+
+00:00:06.070 --> 00:00:06.080 align:start position:0%
+meets just dance so first and foremost
+ 
+
+
+00:00:08.150 --> 00:00:08.160 align:start position:0%
+it's an online game you can go log in
+ 
+
+
+00:00:09.830 --> 00:00:09.840 align:start position:0%
+everything is powered by firebase
+ 
+
+
+00:00:11.910 --> 00:00:11.920 align:start position:0%
+authentication on the profile page we
+ 
+
+
+00:00:13.669 --> 00:00:13.679 align:start position:0%
+can go use the the picture
+ 
+
+
+00:00:15.749 --> 00:00:15.759 align:start position:0%
+via cloud storage everything else gets
+ 
+
+
+00:00:17.109 --> 00:00:17.119 align:start position:0%
+stored to firestore
+ 
+
+
+00:00:18.630 --> 00:00:18.640 align:start position:0%
+you can go test it out on the website
+ 
+
+
+00:00:20.950 --> 00:00:20.960 align:start position:0%
+everything's fully featured so if we go
+ 
+
+
+00:00:23.189 --> 00:00:23.199 align:start position:0%
+over to play the first thing we're going
+ 
+
+
+00:00:24.150 --> 00:00:24.160 align:start position:0%
+to need to do is we're going to need to
+ 
+
+
+00:00:25.189 --> 00:00:25.199 align:start position:0%
+connect a camera
+ 
+
+
+00:00:26.870 --> 00:00:26.880 align:start position:0%
+so we can either directly connect the
+ 
+
+
+00:00:28.310 --> 00:00:28.320 align:start position:0%
+computer webcam or
+ 
+
+
+00:00:29.910 --> 00:00:29.920 align:start position:0%
+we can click here it'll generate a qr
+ 
+
+
+00:00:31.509 --> 00:00:31.519 align:start position:0%
+code which we scan with the flutter app
+ 
+
+
+00:00:32.870 --> 00:00:32.880 align:start position:0%
+which goes to
+ 
+
+
+00:00:35.270 --> 00:00:35.280 align:start position:0%
+the google kubernetes engine via
+ 
+
+
+00:00:37.030 --> 00:00:37.040 align:start position:0%
+websocket then back to the front end so
+ 
+
+
+00:00:38.389 --> 00:00:38.399 align:start position:0%
+we get the image over here
+ 
+
+
+00:00:39.750 --> 00:00:39.760 align:start position:0%
+so we're just going to use the um
+ 
+
+
+00:00:41.830 --> 00:00:41.840 align:start position:0%
+computer camera so we're going to click
+ 
+
+
+00:00:42.950 --> 00:00:42.960 align:start position:0%
+calibrate camera
+ 
+
+
+00:00:44.310 --> 00:00:44.320 align:start position:0%
+now the great thing about why we're
+ 
+
+
+00:00:46.310 --> 00:00:46.320 align:start position:0%
+calibrating this is that we can go
+ 
+
+
+00:00:47.670 --> 00:00:47.680 align:start position:0%
+generate dance moves
+ 
+
+
+00:00:49.510 --> 00:00:49.520 align:start position:0%
+and retrofit other types of dance moves
+ 
+
+
+00:00:50.869 --> 00:00:50.879 align:start position:0%
+that have already been generated
+ 
+
+
+00:00:52.960 --> 00:00:53.910 align:start position:0%
+to your body dimensions in terms of the
+proportions
+
+
+00:00:55.430 --> 00:00:55.440 align:start position:0%
+now we can then go through and we can go
+ 
+
+
+00:00:57.670 --> 00:00:57.680 align:start position:0%
+select either a pre-existing dance
+ 
+
+
+00:00:58.709 --> 00:00:58.719 align:start position:0%
+this will be something that you can
+ 
+
+
+00:01:00.709 --> 00:01:00.719 align:start position:0%
+either download or record in the future
+ 
+
+
+00:01:03.029 --> 00:01:03.039 align:start position:0%
+or we can enter dance party mode where
+ 
+
+
+00:01:04.720 --> 00:01:05.429 align:start position:0%
+all of the dance moves are randomly
+generated
+
+
+
+00:01:07.190 --> 00:01:07.200 align:start position:0%
+human-esque figures that you try and
+ 
+
+
+00:01:09.109 --> 00:01:09.119 align:start position:0%
+match so we can go through and we can
+ 
+
+
+00:01:10.390 --> 00:01:10.400 align:start position:0%
+start the dance party
+ 
+
+
+00:01:12.950 --> 00:01:12.960 align:start position:0%
+and as you can see the blue figure is
+ 
+
+
+00:01:14.149 --> 00:01:14.159 align:start position:0%
+where you're currently at
+ 
+
+
+00:01:15.590 --> 00:01:15.600 align:start position:0%
+and the white figure is the dance move
+ 
+
+
+00:01:17.350 --> 00:01:17.360 align:start position:0%
+that you're trying to mimic note that
+ 
+
+
+
+00:01:18.550 --> 00:01:18.560 align:start position:0%
+the white figure
+ 
+
+
+00:01:20.630 --> 00:01:20.640 align:start position:0%
+always anchors to your left shoulder so
+ 
+
+
+00:01:22.310 --> 00:01:22.320 align:start position:0%
+it doesn't matter where you are in the
+ 
+
+
+00:01:23.590 --> 00:01:23.600 align:start position:0%
+the space that you're in
+ 
+
+
+00:01:25.190 --> 00:01:25.200 align:start position:0%
+as long as you get your body into the
+ 
+
+
+00:01:27.350 --> 00:01:27.360 align:start position:0%
+right shape it will go count it for you
+ 
+
+
+00:01:29.350 --> 00:01:29.360 align:start position:0%
+now if we go through and we close out if
+ 
+
+
+00:01:30.630 --> 00:01:30.640 align:start position:0%
+we want to go through we can go choose
+ 
+
+
+00:01:32.149 --> 00:01:32.159 align:start position:0%
+another dance really easily without
+ 
+
+
+00:01:33.990 --> 00:01:34.000 align:start position:0%
+needing to go recalibrate or anything
+ 
+
+
+00:01:35.590 --> 00:01:35.600 align:start position:0%
+and not only can we select a dance up
+ 
+
+
+00:01:37.830 --> 00:01:37.840 align:start position:0%
+here but we can also change the speed
+ 
+
+
+00:01:40.880 --> 00:01:43.280 align:start position:0%
+of our dance party mode they've gone to
+plaid
+
+
+00:01:44.290 --> 00:01:50.389 align:start position:0%
+[Music]
+
+
+00:01:52.149 --> 00:01:52.159 align:start position:0%
+as you can see we can make you dance
+ 
+
+00:01:54.159 --> 00:01:55.840 align:start position:0%
+till you drop
+
