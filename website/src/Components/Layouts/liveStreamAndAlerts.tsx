@@ -1,4 +1,11 @@
-import { Chip, Container, Fab, TextField, Typography } from "@material-ui/core";
+import {
+  Button,
+  Chip,
+  Container,
+  Fab,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import MicIcon from "@material-ui/icons/Mic";
 import StopIcon from "@material-ui/icons/Stop";
 import React, { Fragment } from "react";
@@ -8,6 +15,7 @@ import {
   doNotify,
   removeTag,
   resetTriggered,
+  sendSystemNotification,
   triggerTag,
 } from "../../Scripts/notificationHelper";
 import {
@@ -115,6 +123,9 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
               message: `Audio Alerter just heard the tag \"${value}\".`,
               open: true,
             });
+            sendSystemNotification(
+              `Audio Alerter just heard the tag \"${value}\".`
+            );
           }
           return true;
         } else {
@@ -173,6 +184,15 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
         <Typography variant="h5" className={classes.marginedTopBottom}>
           Audio Alerts
         </Typography>
+        {"Notification" in window && Notification.permission === "default" && (
+          <Button
+            color="primary"
+            variant="contained"
+            onClick={() => Notification.requestPermission()}
+          >
+            Update Notification Settings
+          </Button>
+        )}
         <TextField
           fullWidth
           label="Enter Words of Phrases to Alert On:"
