@@ -1,9 +1,15 @@
 import { google } from "@google-cloud/speech/build/protos/protos";
 import http from "http";
+import { nanoid } from "nanoid";
 import Pumpify from "pumpify"; // For Type Defs
 import socketIO from "socket.io";
 import { speechToTextClient } from "./speechToText";
-import { TranscriptionItemWithFinal } from "./transcriptTypes";
+import {
+  SaveVideoData,
+  TranscriptionItemWithFinal,
+  TranscriptItem,
+} from "./transcriptTypes";
+import { post } from "request-promise-native";
 
 console.log("Started Server");
 
@@ -25,9 +31,16 @@ const request = {
 const server = http.createServer();
 const io = socketIO(server);
 io.on("connection", (client) => {
+  let closed = false;
+  let transcript: TranscriptItem[] = [];
+
   // Initialize Times for Timestamping
   let startRecordingTime: Date | null = null;
   let nextBlockStartTime: Date | null = null;
+
+  // Initialize Data for Firebase Storage
+  let userId = "";
+  let videoTitle = "";
 
   // On New Connection:
   console.log("New Connection: " + client.id);
@@ -49,14 +62,41 @@ io.on("connection", (client) => {
       isFinal: data.results[0].isFinal,
     };
 
-    if (processedData.isFinal) {
-      nextBlockStartTime = null;
-    }
     client.emit("transcript", processedData);
+
+    if (processedData.isFinal) {
+      transcript.push({ text: processedData.text, time: processedData.time });
+      nextBlockStartTime = null;
+      if (closed) {
+        recognizer?.end();
+        recognizer?.removeListener("data", speechCallback);
+        recognizer = null;
+        client.disconnect();
+        console.log("Connection Closed.");
+        const videoData: SaveVideoData = {
+          userId,
+          videoData: {
+            videoId: nanoid(),
+            videoSource: "",
+            videoType: "",
+            videoTitle,
+            transcript,
+          },
+        };
+        post(
+          "https://us-central1-ruhacks2020-gcp.cloudfunctions.net/save_video_transcript",
+          { body: videoData, json: true }
+        )
+          .then((value) => console.log(value))
+          .catch((err) => console.log(err));
+      }
+    }
   };
 
   // Initialize Audio Streaming
-  client.on("start", () => {
+  client.on("start", (data) => {
+    userId = data.userId;
+    videoTitle = data.videoTitle;
     console.log("Start Streaming Audio Data.");
     recognizer = speechToTextClient
       .streamingRecognize(request)
@@ -84,9 +124,7 @@ io.on("connection", (client) => {
   client.on("stop", () => {
     if (recognizer) {
       console.log("Stop Streaming Audio Data.");
-      recognizer?.end();
-      recognizer?.removeListener("data", speechCallback);
-      recognizer = null;
+      closed = true;
     } else {
       console.log("No recongizer to disconnect!");
     }

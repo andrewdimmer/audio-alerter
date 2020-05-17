@@ -22,17 +22,20 @@ import {
   TranscriptionItemWithFinal,
   TranscriptItem,
 } from "../../Scripts/transcriptTypes";
+import { UserProfile } from "../../Scripts/userTypes";
 import { NotificationMessage } from "../Misc/Notifications";
 
 declare interface LiveStreamAndSearchProps {
   setTranscript: (transcript: TranscriptItem[]) => void;
   setNotification: (notification: NotificationMessage) => void;
+  currentUserProfile: UserProfile | null;
   classes: any;
 }
 
 const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = ({
   setTranscript,
   setNotification,
+  currentUserProfile,
   classes,
 }) => {
   const [videoTitle, setVideoTitle] = React.useState<string>("");
@@ -52,11 +55,18 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
       stopRecording();
       setVideoTitle("");
       setMostRecentTranscript("");
-    } else {
+    } else if (currentUserProfile) {
       setRecording(true);
-      startRecording(handleDataReturned);
+      startRecording(currentUserProfile.userId, videoTitle, handleDataReturned);
       transcript = [];
       setTranscript(transcript);
+    } else {
+      setNotification({
+        type: "error",
+        message:
+          "Can't start recording. Please try logging out and logging back in.",
+        open: true,
+      });
     }
   };
 

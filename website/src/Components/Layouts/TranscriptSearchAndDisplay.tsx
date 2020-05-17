@@ -8,6 +8,7 @@ import {
 import SearchIcon from "@material-ui/icons/Search";
 import React, { Fragment } from "react";
 import { TranscriptItem, VideoData } from "../../Scripts/transcriptTypes";
+import { UserProfile } from "../../Scripts/userTypes";
 import { NotificationMessage } from "../Misc/Notifications";
 import LiveStreamAndSearch from "./liveStreamAndAlerts";
 
@@ -15,6 +16,7 @@ declare interface TranscriptPageProps {
   video?: VideoData;
   live?: boolean;
   setNotification: (notification: NotificationMessage) => void;
+  currentUserProfile: UserProfile | null;
   classes: any;
 }
 
@@ -22,6 +24,7 @@ const TranscriptPage: React.FunctionComponent<TranscriptPageProps> = ({
   video,
   live,
   setNotification,
+  currentUserProfile,
   classes,
 }) => {
   const [search, setSearch] = React.useState<string>("");
@@ -102,6 +105,7 @@ const TranscriptPage: React.FunctionComponent<TranscriptPageProps> = ({
                 <LiveStreamAndSearch
                   setTranscript={setTranscript}
                   setNotification={setNotification}
+                  currentUserProfile={currentUserProfile}
                   classes={classes}
                 />
               )}

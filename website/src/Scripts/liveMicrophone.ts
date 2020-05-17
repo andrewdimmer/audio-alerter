@@ -9,7 +9,11 @@ let callback: (data: TranscriptionItemWithFinal) => void = () => {};
 
 const getCallback = () => callback;
 
-export const startRecording = (newCallback: (data: any) => void) => {
+export const startRecording = (
+  userId: string,
+  videoTitle: string,
+  newCallback: (data: any) => void
+) => {
   callback = newCallback;
 
   // Initialize Socket
@@ -19,7 +23,7 @@ export const startRecording = (newCallback: (data: any) => void) => {
   });
 
   // Activate Server Connection to Google Speech-to-Text
-  socketConnection.emit("start");
+  socketConnection.emit("start", { userId, videoTitle });
 
   // Initialize Microphone
   socketConnection.on("ready", () => {

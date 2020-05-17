@@ -77,6 +77,7 @@ const HomePage: React.FunctionComponent<PageProps> = ({
         disabled={currentUser ? false : true}
         onClick={() => {
           setVideo({
+            videoId: "Test",
             videoTitle: "Hacklarious Demo Video",
             videoSource: "../..//Assets/HacklariousVideo.mp4",
             videoType: "video/mp4",
