@@ -59,7 +59,7 @@ const HomePage: React.FunctionComponent<PageProps> = ({
         className={classes.marginedTopBottom}
         disabled={currentUser ? false : true}
         onClick={() => {
-          setPageKey("events");
+          setPageKey("upload");
         }}
       >
         <Typography variant="h4">

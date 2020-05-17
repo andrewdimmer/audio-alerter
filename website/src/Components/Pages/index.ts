@@ -3,6 +3,7 @@ import { OverridableComponent } from "@material-ui/core/OverridableComponent";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import HomeIcon from "@material-ui/icons/Home";
+import CloudUploadIcon from "@material-ui/icons/CloudUpload";
 import { UserProfile } from "../../Scripts/userTypes";
 import { NotificationMessage } from "../Misc/Notifications";
 import ErrorPage from "./ErrorPage";
@@ -11,6 +12,7 @@ import LoginPage from "./LoginPage";
 import LogoutPage from "./LogoutPage";
 import ProfilePage from "./ProfilePage";
 import { VideoData } from "../../Scripts/transcriptTypes";
+import UploadPage from "./UploadPage";
 
 export declare interface PageProps {
   setPageKey: (pageKey: string) => void;
@@ -47,6 +49,15 @@ const pageList: PageListItem[] = [
     displaySignedIn: true,
     displaySignedOut: true,
     component: HomePage,
+  },
+  {
+    key: "upload",
+    title: "",
+    menuLabel: "Upload",
+    menuIcon: CloudUploadIcon,
+    displaySignedIn: true,
+    displaySignedOut: false,
+    component: UploadPage,
   },
   {
     key: "login",
