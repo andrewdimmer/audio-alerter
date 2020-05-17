@@ -19,6 +19,7 @@ export declare interface PageProps {
   forceReloadUserData: () => void;
   handleLoadUserData: (userId: string) => void;
   setVideo: (video?: VideoData) => void;
+  setLive: (live: boolean) => void;
   currentUser: firebase.User | null;
   currentUserProfile: UserProfile | null;
   classes: any;

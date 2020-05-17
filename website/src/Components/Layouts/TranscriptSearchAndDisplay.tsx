@@ -7,21 +7,26 @@ import {
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import React, { Fragment } from "react";
-import { VideoData } from "../../Scripts/transcriptTypes";
+import { TranscriptItem, VideoData } from "../../Scripts/transcriptTypes";
+import LiveStreamAndSearch from "./liveStreamAndAlerts";
 
 declare interface TranscriptPageProps {
   video?: VideoData;
+  live?: boolean;
+  classes: any;
 }
 
 const TranscriptPage: React.FunctionComponent<TranscriptPageProps> = ({
   video,
+  live,
+  classes,
 }) => {
   const [search, setSearch] = React.useState<string>("");
   const screenHeight = React.useRef<HTMLDivElement>(null);
   const [height, setHeight] = React.useState<number>(0);
-
-  const transcript = video ? video.transcript : [];
-  const title = video ? video.videoTitle : "";
+  const [transcript, setTranscript] = React.useState<TranscriptItem[]>(
+    video ? video.transcript : []
+  );
 
   const computeHeight = () => {
     if (screenHeight.current && height !== screenHeight.current.clientHeight) {
@@ -81,12 +86,22 @@ const TranscriptPage: React.FunctionComponent<TranscriptPageProps> = ({
       >
         <Grid container direction="row" style={{ height }} spacing={4}>
           <Grid item md={8}>
-            {video && (
-              <video controls style={{ width: "100%" }} id="video">
-                <source src={video.videoSource} type={video.videoType} />
-              </video>
-            )}
-            <Typography variant="h4">{title}</Typography>
+            <Fragment>
+              {video && (
+                <Fragment>
+                  <video controls style={{ width: "100%" }} id="video">
+                    <source src={video.videoSource} type={video.videoType} />
+                  </video>
+                  <Typography variant="h4">{video.videoTitle}</Typography>
+                </Fragment>
+              )}
+              {live && (
+                <LiveStreamAndSearch
+                  setTranscript={setTranscript}
+                  classes={classes}
+                />
+              )}
+            </Fragment>
           </Grid>
           <Grid item md={4} style={{ height: "100%" }}>
             <Grid
@@ -119,7 +134,7 @@ const TranscriptPage: React.FunctionComponent<TranscriptPageProps> = ({
                   overflow: "auto",
                 }}
               >
-                {transcript.reduce((list, item, index, array) => {
+                {transcript.reduce((list, item, index) => {
                   if (
                     item.text
                       .toLowerCase()
@@ -131,6 +146,7 @@ const TranscriptPage: React.FunctionComponent<TranscriptPageProps> = ({
                         onClick={() => {
                           setVideoTime(item.time);
                         }}
+                        key={`Transcript_Item_${index}`}
                       >
                         <Typography variant="body1">
                           {item.time.slice(0, 8)}

@@ -4,12 +4,17 @@ let audioContext: AudioContext | null = null;
 let scriptProcessor: ScriptProcessorNode | null = null;
 let audioStream: MediaStream | null = null;
 let socketConnection: SocketIOClient.Socket | null = null;
+let callback: (data: any) => void = () => {};
 
-export const startRecording = () => {
+const getCallback = () => callback;
+
+export const startRecording = (newCallback: (data: any) => void) => {
+  callback = newCallback;
+
   // Initialize Socket
   socketConnection = socketio("http://localhost:8080");
   socketConnection.on("transcript", (data: any) => {
-    console.log(data.results[0].alternatives[0].transcript);
+    getCallback()(data);
   });
 
   // Activate Server Connection to Google Speech-to-Text

@@ -8,6 +8,7 @@ const HomePage: React.FunctionComponent<PageProps> = ({
   currentUser,
   setPageKey,
   setVideo,
+  setLive,
 }) => {
   const classes = styles();
 
@@ -41,7 +42,7 @@ const HomePage: React.FunctionComponent<PageProps> = ({
         className={classes.marginedTopBottom}
         disabled={currentUser ? false : true}
         onClick={() => {
-          setPageKey("events");
+          setLive(true);
         }}
       >
         <Typography variant="h4">
