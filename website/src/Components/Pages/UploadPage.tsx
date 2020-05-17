@@ -24,9 +24,9 @@ const UploadPage: React.FunctionComponent<PageProps> = ({
         Upload a video
       </Typography>
       <DropzoneArea
-        acceptedFiles={["mp4/*"]}
+        acceptedFiles={["video/*"]}
         filesLimit={1}
-        maxFileSize={2000000}
+        maxFileSize={1000000000}
         dropzoneText="Either drag and drop an image file here or click here to upload an image from your device."
         showAlerts={false}
         onDrop={(files) => {
