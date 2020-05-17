@@ -1,9 +1,12 @@
-import { Fab, Typography, TextField, Container } from "@material-ui/core";
+import { Container, Fab, TextField, Typography } from "@material-ui/core";
 import MicIcon from "@material-ui/icons/Mic";
 import StopIcon from "@material-ui/icons/Stop";
 import React, { Fragment } from "react";
 import { startRecording, stopRecording } from "../../Scripts/liveMicrophone";
-import { TranscriptItem } from "../../Scripts/transcriptTypes";
+import {
+  TranscriptionItemWithFinal,
+  TranscriptItem,
+} from "../../Scripts/transcriptTypes";
 
 declare interface LiveStreamAndSearchProps {
   setTranscript: (transcript: TranscriptItem[]) => void;
@@ -42,14 +45,10 @@ const LiveStreamAndSearch: React.FunctionComponent<LiveStreamAndSearchProps> = (
     setVideoTitle(event.target.value);
   };
 
-  const handleDataReturned = (data: any) => {
-    const newTranscript = data.results[0].alternatives[0].transcript;
-    setMostRecentTranscript(newTranscript);
-    if (data.results[0].isFinal && newTranscript) {
-      transcript.push({
-        text: newTranscript,
-        time: "No Time Stamp",
-      });
+  const handleDataReturned = (data: TranscriptionItemWithFinal) => {
+    setMostRecentTranscript(data.text);
+    if (data.isFinal && data.text) {
+      transcript.push({ text: data.text, time: data.time });
       setTranscript(transcript.concat([]));
     }
   };

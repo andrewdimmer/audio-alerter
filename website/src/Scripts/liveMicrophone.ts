@@ -1,10 +1,11 @@
 import socketio from "socket.io-client";
+import { TranscriptionItemWithFinal } from "./transcriptTypes";
 
 let audioContext: AudioContext | null = null;
 let scriptProcessor: ScriptProcessorNode | null = null;
 let audioStream: MediaStream | null = null;
 let socketConnection: SocketIOClient.Socket | null = null;
-let callback: (data: any) => void = () => {};
+let callback: (data: TranscriptionItemWithFinal) => void = () => {};
 
 const getCallback = () => callback;
 
