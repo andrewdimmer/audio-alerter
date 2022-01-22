@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@google-cloud/speech": "^3.6.0",
-    "nanoid": "^3.1.8",
+    "nanoid": "^3.1.31",
     "request": "^2.88.2",
     "request-promise-native": "^1.0.8",
     "socket.io": "^2.3.0"
